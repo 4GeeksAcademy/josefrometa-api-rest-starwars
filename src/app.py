@@ -39,10 +39,31 @@ def sitemap():
 @app.route('/user', methods=['GET'])
 def list_users():
     user = User()
-    user 
+    user = user.query.all()
+    user_list =[]
+    for item in user_list:
+        user_list.append(item.serialize())
+    return jsonify(user_list), 200 
+
+@app.route('/user/<int:user_id>', methods=['GET'])
+def user_by_id(user_id=None):
+    user = User()
+    user = user.query.get(user_id)
+    if user_id is None:
+        return jsonify({"Menssage": "Does not exist yet"}), 404 
+
+    return jsonify(user.serialize(), 200)
+
+@app.route('/planets', methods=['GET'])
+def planets_list():
+    planet = Planets()
+    planet = planet.query.all()
+    planet_list = []
+    for item in planets_list:
+        
 
 
-    return jsonify(response_body), 200
+    # return jsonify(response_body), 200
 
 
 # this only runs if `$ python src/app.py` is executed

@@ -9,7 +9,15 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     user_favorite = db.relationship("Favorite", uselist=True, backref="user")
 
-    
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            # do not serialize the password, its a security breach
+        }
 
 class Planets(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,14 +39,5 @@ class Favorite(db.Model):
 
 
 
-    def __repr__(self):
-        return '<User %r>' % self.username
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "email": self.email,
-            # do not serialize the password, its a security breach
-        }
-    
+   
     
